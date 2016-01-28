@@ -1,10 +1,7 @@
 import {Component} from 'angular2/core';
+import {Ranger} from './ranger';
+import {RangerDetailComponent} from './ranger-detail.component';
 
-interface Ranger {
-    id: number;
-    name: string;
-    level: number;
-}
 
 @Component({
     styles: [`
@@ -55,7 +52,6 @@ interface Ranger {
     border-radius: 4px 0px 0px 4px;
   }
 `],
-    selector: 'my-app',
     template: `
         <h1>{{title}}</h1>
         <h2>My Rangers</h2>
@@ -64,15 +60,10 @@ interface Ranger {
                 <span class="badge">{{ranger.level}}</span> {{ranger.name}}
             </li>
         </ul>
-        <div *ngIf="selectedRanger">
-            <h2>{{selectedRanger.name}} details!</h2>
-            <div><label>level: </label>{{selectedRanger.level}}</div>
-            <div>
-                <label>name: </label>
-                <div><input [(ngModel)]="selectedRanger.name" placeholder="name"></div>
-            </div>
-        </div>
-    `
+<my-ranger-detail [ranger]="selectedRanger"></my-ranger-detail>
+    `,
+    directives: [RangerDetailComponent],
+    selector: 'my-app',
 })
 
 export class AppComponent {
