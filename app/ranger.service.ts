@@ -1,19 +1,16 @@
+import {Http} from 'angular2/http';
 import {Injectable} from 'angular2/core';
-import {Ranger} from './ranger';
-import {RANGERS} from './mock-rangers';
+import 'rxjs/add/operator/map';
 
 @Injectable()
 export class RangerService {
 
+    constructor(private _http: Http) { }
+
+
     getRangers() {
-        return Promise.resolve(RANGERS);
-    }
-    
-    // See the "Take it slow" appendix
-    getHeroesSlowly() {
-        return new Promise<Ranger[]>(resolve =>
-            setTimeout(() => resolve(RANGERS), 2000) // 2 seconds
-        );
+        return this._http.get('http://localhost:3000/rangers')
+            .map(res => res.json());
     }
 }
 

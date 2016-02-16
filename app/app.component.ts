@@ -77,7 +77,7 @@ export class AppComponent implements OnInit {
     constructor(private _rangerService: RangerService) { }
 
     getRangers() {
-        this._rangerService.getRangers().then(rangers=> this.rangers = rangers);
+        this._rangerService.getRangers().subscribe(rangers => this.rangers = rangers);
     }
 
     onSelect(ranger: Ranger) {
