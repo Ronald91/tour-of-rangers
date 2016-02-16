@@ -1,0 +1,14 @@
+<h1>{{title}}</h1>
+<h2>My Rangers</h2>
+<ul class="rangers">
+    <li *ngFor="#ranger of rangers" (click)="onSelect(ranger)" [class.selected]="ranger === selectedRanger">
+        <span class="badge">{{ranger.level}}</span> {{ranger.name}}
+    </li>
+</ul>
+
+<div *ngIf="selectedRanger">
+    <h2>
+        {{selectedRanger.name | uppercase}} is my ranger
+    </h2>
+    <button (click)="gotoDetail()">View Details</button>
+</div>

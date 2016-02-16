@@ -1,0 +1,9 @@
+<div *ngIf="ranger">
+    <h2>{{ranger.name}} details!</h2>
+    <div><label>level: </label>{{ranger.level}}</div>
+    <div>
+        <label>name: </label>
+        <div><input [(ngModel)]="ranger.name" placeholder="name"></div>
+    </div>
+    <button (click)="goBack()">Back</button>
+</div>

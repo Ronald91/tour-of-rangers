@@ -1,0 +1,8 @@
+<h3>Highest Leveled Rangers</h3>
+<div class="grid grid-pad">
+    <div *ngFor="#ranger of rangers" (click)="gotoDetail(ranger)" class="col-1-4" >
+        <div class="module ranger">
+            <h4>{{ranger.name}}</h4>
+        </div>
+    </div>
+</div>

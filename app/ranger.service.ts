@@ -12,6 +12,11 @@ export class RangerService {
         return this._http.get('http://localhost:3000/rangers')
             .map(res => res.json());
     }
+
+    getRanger(id: number) {
+        return this._http.get('http://localhost:3000/rangers/' + id)
+            .map(res => res.json());
+    }
 }
 
 
