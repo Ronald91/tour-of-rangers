@@ -27,6 +27,14 @@ export class RangerDetailComponent implements OnInit {
     goBack() {
         window.history.back();
     }
+
+    saveDetail(ranger: Ranger) {
+        let body = JSON.stringify(ranger);
+        let id = +this._routeParams.get('id');
+        this._rangerService.updateRanger(id, body)
+            .subscribe(ranger => this.ranger = ranger);
+
+    }
 }
 
 
