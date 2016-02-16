@@ -1,9 +1,11 @@
-import {Component} from 'angular2/core';
+import {Component, OnInit} from 'angular2/core';
 import {Ranger} from './ranger';
 import {RangerDetailComponent} from './ranger-detail.component';
+import {RangerService} from './ranger.service';
 
 
 @Component({
+    selector: 'my-app',
     styles: [`
   .selected {
     background-color: #CFD8DC !important;
@@ -60,34 +62,30 @@ import {RangerDetailComponent} from './ranger-detail.component';
                 <span class="badge">{{ranger.level}}</span> {{ranger.name}}
             </li>
         </ul>
-<my-ranger-detail [ranger]="selectedRanger"></my-ranger-detail>
+        <my-ranger-detail [ranger]="selectedRanger"></my-ranger-detail>
     `,
     directives: [RangerDetailComponent],
-    selector: 'my-app',
+    providers: [RangerService]
 })
 
-export class AppComponent {
+export class AppComponent implements OnInit {
     public title = 'Tour of Rangers';
-
+    rangers: Ranger[];
     public selectedRanger: Ranger;
 
-    public rangers = RANGERS;
+    //Private variables are prefixed with _
+    constructor(private _rangerService: RangerService) { }
+
+    getRangers() {
+        this._rangerService.getRangers().then(rangers=> this.rangers = rangers);
+    }
 
     onSelect(ranger: Ranger) {
         this.selectedRanger = ranger;
     }
 
-}
+    ngOnInit() {
+        this.getRangers();
+    }
 
-var RANGERS: Ranger[] = [
-    { id: 6, name: 'Charizard', level: 50 },
-    { id: 160, name: 'Feraligatr', level: 48 },
-    { id: 149, name: 'Dragonite', level: 62 },
-    { id: 373, name: 'Salamence', level: 58 },
-    { id: 65, name: 'Alakazam', level: 65 },
-    { id: 150, name: 'Mewtwo ', level: 72 },
-    { id: 635, name: 'Hydreigon', level: 68 },
-    { id: 244, name: 'Entei', level: 60 },
-    { id: 249, name: 'Lugia', level: 61 },
-    { id: 151, name: 'Mew', level: 51 }
-];
+}

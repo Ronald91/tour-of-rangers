@@ -1,5 +1,6 @@
 /nbproject/*
 /node_modules/*
+/typings/*
 *.js
 *.js.map
 !gulpfile.js
