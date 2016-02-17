@@ -9,6 +9,7 @@ import {RangersComponent} from './rangers.component';
 import {DashboardComponent} from './dashboard.component';
 import {RangerService} from './ranger.service';
 import {RangerDetailComponent} from './ranger-detail.component'
+import {NewRangerComponent} from './new-ranger.component'
 import { RouteConfig, ROUTER_DIRECTIVES, ROUTER_PROVIDERS } from 'angular2/router';
 
 
@@ -17,7 +18,7 @@ import { RouteConfig, ROUTER_DIRECTIVES, ROUTER_PROVIDERS } from 'angular2/route
     directives: [ROUTER_DIRECTIVES],
     providers: [RangerService, ROUTER_PROVIDERS],
     templateUrl: 'app/app.component.html',
-    styleUrls: ['app/app.component.css'],
+    styleUrls: ['app/app.component.css']
 })
 
 @RouteConfig([
@@ -36,6 +37,11 @@ import { RouteConfig, ROUTER_DIRECTIVES, ROUTER_PROVIDERS } from 'angular2/route
         path: '/detail/:id',
         name: 'RangerDetail',
         component: RangerDetailComponent
+    },
+     {
+        path: '/ranger',
+        name: 'NewRanger',
+        component: NewRangerComponent
     }
 ])
 

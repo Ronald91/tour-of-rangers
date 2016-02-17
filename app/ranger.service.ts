@@ -1,4 +1,4 @@
-import {Http} from 'angular2/http';
+import {Http, Headers, RequestOptions} from 'angular2/http';
 import {Injectable} from 'angular2/core';
 
 import 'rxjs/add/operator/map';
@@ -20,7 +20,16 @@ export class RangerService {
     }
 
     updateRanger(id: number, requestBody: string) {
-        return this._http.put('http://localhost:3000/rangers/' + id, requestBody)
+        let headers = new Headers({ 'Content-Type': 'application/json' });
+        let options = new RequestOptions({ headers: headers });
+        return this._http.put('http://localhost:3000/rangers/' + id, requestBody, options)
+            .map(res => res.json());
+    }
+
+    newRanger(requestBody: string) {
+        let headers = new Headers({ 'Content-Type': 'application/json' });
+        let options = new RequestOptions({ headers: headers });
+        return this._http.post('http://localhost:3000/rangers/', requestBody, options)
             .map(res => res.json());
     }
 }

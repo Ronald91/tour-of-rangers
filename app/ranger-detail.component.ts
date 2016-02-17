@@ -34,6 +34,7 @@ export class RangerDetailComponent implements OnInit {
         this._rangerService.updateRanger(id, body)
             .subscribe(ranger => this.ranger = ranger);
 
+        window.alert("Ranger updated");
     }
 }
 
