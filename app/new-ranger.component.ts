@@ -27,18 +27,23 @@ export class NewRangerComponent {
         //Call the pokemon service to get the actual id of the pokemon
         var pokeApiRequestName = this.newRanger.name.toLowerCase();
 
-        this.saveNewRanger(this.newRanger,this._pokemonService.getPokemon(pokeApiRequestName)
-            .subscribe(pokemon => this.returnedPokemon = pokemon)) ;
+        this._pokemonService.getPokemon(pokeApiRequestName)
+            .subscribe(pokemon => this.returnedPokemon = pokemon);
 
+        //Todo: Figure out how to wait for the observable to come back with data
+        this.saveNewRanger(this.newRanger, this.returnedPokemon)
 
     }
-    saveNewRanger(newRanger:Ranger,Subscription){
-        //TODO: Figure out how to get the response of the subscribe to then use as a parameter for the other api
-        newRanger.id = Subscription;
+    saveNewRanger(newRanger: Ranger, returnedPokemon: Ranger) {
+        if (returnedPokemon === undefined) {
+            return
+        } else {
+            newRanger.id = returnedPokemon.id;
             let body = JSON.stringify(newRanger);
             this._rangerService.newRanger(body)
                 .subscribe(ranger => newRanger = ranger);
-            window.alert("Ranger created")
+            window.alert("Ranger created");
+        }
     }
 }
 
