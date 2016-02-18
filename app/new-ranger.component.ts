@@ -6,8 +6,10 @@
 
 import {Component} from 'angular2/core';
 import {Ranger} from './ranger';
-import {NgForm}    from 'angular2/common';
 import {RangerService} from './ranger.service';
+import {PokemonService} from './pokemon.service';
+
+
 
 @Component({
     selector: 'ranger-form',
@@ -15,12 +17,29 @@ import {RangerService} from './ranger.service';
     styleUrls: ['app/new-ranger.component.css']
 })
 export class NewRangerComponent {
-     newRanger: Ranger;
-    submitted = false;
+    newRanger: Ranger = { id: null, name: "", level: null };
+    returnedPokemon: Ranger;
+
+    constructor(private _rangerService: RangerService,
+        private _pokemonService: PokemonService) { }
+
     onSubmit() {
-        this.submitted = true;
+        //Call the pokemon service to get the actual id of the pokemon
+        var pokeApiRequestName = this.newRanger.name.toLowerCase();
+
+        this.saveNewRanger(this.newRanger,this._pokemonService.getPokemon(pokeApiRequestName)
+            .subscribe(pokemon => this.returnedPokemon = pokemon)) ;
+
+
     }
-    //TODO: Make use of http://pokeapi.co/ to do stuff like set the correct id in the background
+    saveNewRanger(newRanger:Ranger,Subscription){
+        //TODO: Figure out how to get the response of the subscribe to then use as a parameter for the other api
+        newRanger.id = Subscription;
+            let body = JSON.stringify(newRanger);
+            this._rangerService.newRanger(body)
+                .subscribe(ranger => newRanger = ranger);
+            window.alert("Ranger created")
+    }
 }
 
 
